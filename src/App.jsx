@@ -11,7 +11,7 @@ import {
   BookNow,
 } from "@home";
 import { Contact, WeedingEvents } from "@/pages";
-import MobileNavbar from "@components/mobileNavBar";
+
 
 
 // Create a browser router with routes defined
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       <>
 
         <Navbar  />
-        {/* <MobileNavbar className="lg:hidden" /> */}
+        
      
         
         

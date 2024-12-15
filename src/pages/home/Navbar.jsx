@@ -6,7 +6,7 @@ import MenuIcon from "@svg/menu.svg?react";
 import CloseIcon from "@svg/close.svg?react";
 import throttle from "lodash.throttle";
 import clsx from "clsx";
-//import MobileNavbar from '@components/MobileNavbar';
+
 
 const navLinks = [
   { to: "/", label: "Home" },

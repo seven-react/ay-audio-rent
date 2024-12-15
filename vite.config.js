@@ -23,5 +23,5 @@ export default defineConfig({
   },
 
   plugins: [react(), svgr()],
-  //base: "/ay-audio-rental"
+  outDir: 'dist', // Default is 'dist'
 });
