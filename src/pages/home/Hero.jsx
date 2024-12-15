@@ -1,4 +1,4 @@
-import { styles } from "@/Styles";
+
 import ScrollIcon from "@svg/scroll_Icon.svg?react"; // Use ReactComponent for SVG
 
 const Hero = () => {
