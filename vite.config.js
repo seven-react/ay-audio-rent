@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import svgr from "vite-plugin-svgr";
 
+
 // https://vite.dev/config/
 export default defineConfig({
   resolve: {
@@ -15,8 +16,8 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "./src/assets"),
       "@svg": path.resolve(__dirname, "./src/assets/Svg"),
       // "@packages": path.resolve(__dirname, "./src/assets/packages"),
-      "@pages": path.resolve(__dirname, "./src/pages"),
-      "@home": path.resolve(__dirname, "./src/pages/home"),
+      "@page": path.resolve(__dirname, "./src/page"),
+      "@home": path.resolve(__dirname, "./src/page/home"),
        
       // "@events": path.resolve(__dirname, "./src/components/Events"),
     },
@@ -24,4 +25,5 @@ export default defineConfig({
 
   plugins: [react(), svgr()],
   outDir: 'dist', // Default is 'dist'
+  
 });

@@ -1,8 +1,62 @@
-import React from "react";
+import React, { useState,handleChange} from "react";
 import ScrollIcon from "@svg/scroll_Icon.svg?react"; 
 import {Footer, FooterWidgets} from '@home';
-
+import axios from "axios";  // Import Axios
 const Contact = () => {
+
+ // State to hold form values
+ const [formData, setFormData] = useState({
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  dateNeeded: "",
+  address: "",
+  equipment: "",
+  message: "",
+});
+
+
+  // State for form submission feedback
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Handle form input change
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitStatus(null); // Reset previous submission status
+
+    // Validate form data (simple example)
+    if (!formData.firstName || !formData.email || !formData.phone) {
+      setSubmitStatus("Please fill out all required fields.");
+      return;
+    }
+
+    // Send data to backend using Axios
+    try {
+      const response = await axios.post("/api/send-email", formData);
+
+      // Handle response from the serverless function
+      if (response.status === 200) {
+        setSubmitStatus("Your message has been sent successfully!");
+      } else {
+        setSubmitStatus(`Error: ${response.data.message}`);
+      }
+    } catch (error) {
+      setSubmitStatus(`Error: ${error.message}`);
+    }
+  };
+
+
+
   // Scroll handler function to scroll down by 5rem
   const handleScroll = () => {
     window.scrollBy({
@@ -41,18 +95,21 @@ const Contact = () => {
       </div>
 
 
-      <div className="relative mt-4.2 mx-auto my-70 w-[100%] flex flex-col gap-7  lg:flex-row flex-wrap items-baseline justify-between px-[7%]">
+      <div className="relative mt-4.2 mx-auto my-70 w-[100%] flex flex-col gap-7  lg:flex-row items-start justify-between px-[7%]">
         {/* Flex-1 Section on the Left */}
         <div className="basis-full lg:basis-1/2 px-[0.7451rem]  ">
-          <form className="space-y-4  ">
-            <div className="flex flex-col lg:flex-row gap-3 items-center justify-center mx-auto ">
+          <form className="space-y-4 " onSubmit={handleSubmit}>
+            <div className="flex flex-col lg:flex-row gap-7 items-center justify-center mx-auto ">
               <div className=" w-full lg:w-1/2">
                 <label className="block  text-sm font-medium text-cello">
                   First name*
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full lg:w-[15.35rem]   h-[2.375rem] p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full    h-[2.375rem] p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
                 />
               </div>
               <div className=" w-full lg:w-1/2">
@@ -61,7 +118,10 @@ const Contact = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full lg:w-[15.35rem]   h-[2.375rem] p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full   h-[2.375rem] p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
                 />
               </div>
             </div>
@@ -72,6 +132,9 @@ const Contact = () => {
               </label>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
                 className="mt-1 block w-full p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
               />
             </div>
@@ -82,6 +145,9 @@ const Contact = () => {
               </label>
               <input
                 type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
                 className="mt-1 block w-full p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
               />
             </div>
@@ -92,6 +158,9 @@ const Contact = () => {
               </label>
               <input
                 type="date"
+                name="dateNeeded"
+                value={formData.dateNeeded}
+                onChange={handleChange}
                 className="mt-1 block w-full p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
               />
             </div>
@@ -113,6 +182,9 @@ const Contact = () => {
                   <input
                     type="checkbox"
                     id="delivery"
+                    name="delivery"
+                    checked={formData.delivery}
+                    onChange={handleChange}
                     className="h-[0.9rem] w-[0.9rem] cursor-pointer text-white bg-light-blue rounded-[0.1875rem] checked:bg-blue-600
          checked:text-white hover:bg-cello border-none mt-[0.1875rem] mr-[0.3125rem] mb-[0.1875rem] ml-0"
                   />
@@ -128,6 +200,9 @@ const Contact = () => {
                   <input
                     type="checkbox"
                     id="pickup"
+                    name="pickup"
+                    checked={formData.pickup}
+                    onChange={handleChange}
                     className="h-[0.9rem] w-[0.9rem] cursor-pointer text-white bg-light-blue rounded-[0.1875rem] checked:bg-blue-600
          checked:text-white hover:bg-cello border-none mt-[0.1875rem] mr-[0.3125rem] mb-[0.1875rem] ml-0"
                   />
@@ -142,7 +217,10 @@ const Contact = () => {
                 <li className="flex items-center">
                   <input
                     type="checkbox"
-                    id="none"
+                    
+                    name="none"
+                    checked={formData.none}
+                    onChange={handleChange}
                     className="h-[0.9rem] w-[0.9rem] cursor-pointer text-white bg-light-blue rounded-[0.1875rem] checked:bg-blue-600
          checked:text-white hover:bg-cello border-none mt-[0.1875rem] mr-[0.3125rem] mb-[0.1875rem] ml-0"
                   />
@@ -167,6 +245,9 @@ const Contact = () => {
                 className="  w-full mt-1 p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue "
                 id="delivery_address"
                 type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
                 placeholder=""
               />
             </div>
@@ -181,6 +262,9 @@ const Contact = () => {
                 className="  w-full mt-1 p-2  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue "
                 id="equipment_package"
                 type="text"
+                name="equipment"
+                value={formData.equipment}
+                onChange={handleChange}
                 placeholder=""
               />
             </div>
@@ -197,6 +281,9 @@ const Contact = () => {
               <textarea
                 className=" w-full mt-1 mb-[1.125rem] py-[0.625rem] px-[0.9375rem]  bg-light-blue border-[0.0625rem] border-solid rounded-[0.1875rem] border-pastel-blue"
                 id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 rows="4"
                 placeholder=""
               ></textarea>
@@ -215,7 +302,7 @@ const Contact = () => {
         </div>
 
         {/* Flex-2 Section on the Right */}
-        <div className=" basis-[50%] px-[0.7451rem] items-baseline  text-gray">
+        <div className=" basis-full lg:basis-1/2 px-[0.7451rem] items-baseline  text-gray">
           <h2 className="text-[2.125rem] pb-[0.35rem] leading-[2.75rem] font-semibold mb-[0.4375rem] ">
             AY Audio Rent
           </h2>
@@ -253,10 +340,9 @@ const Contact = () => {
 
     
     
-    
     <FooterWidgets/>
-    
     <Footer/>
+
   </div>
   );
 };

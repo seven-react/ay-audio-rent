@@ -2,7 +2,7 @@ import React from 'react';
 
 const FooterWidgets = () => {
   return (
-    <div className="bg-gunmetal text-white py-10 ">
+    <footer className=" bg-gunmetal text-white py-10 ">
         
         <div className="container xs:pb-[5.5rem] mx-auto px-4">
       <div className="flex flex-col   sm:flex-row gap-[4.5rem] md:gap-[6rem] lg:gap-[6rem]  ">
@@ -50,7 +50,7 @@ const FooterWidgets = () => {
     </div>
     
     
-    </div>
+    </footer>
   );
 }
 

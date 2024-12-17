@@ -1,6 +1,6 @@
 import React from "react";
 import ScrollIcon from "@svg/scroll_Icon.svg?react";
-import { Footer, FooterWidgets } from "@home";
+import { FooterWidgets, Footer} from "@home"
 import { ceremony, standard, standardSub, pro, basic, mic } from "../assets";
 
 // PackageCards Component
@@ -103,7 +103,7 @@ const WeedingEvents = () => {
   };
 
   return (
-    <div className="w-full h-full ">
+    <section className="w-full h-full ">
       {/* Scroll Down Section */}
       <div className="scroll-down-wrap no-border flex flex-col items-center justify-end w-full h-full flex-shrink-0">
         <div>
@@ -240,11 +240,9 @@ const WeedingEvents = () => {
      about our incredible wedding audio equipment rental packages!</p>
 	</div>
       </div>
-
-
-      <FooterWidgets />
-      <Footer />
-    </div>
+      <FooterWidgets/>
+        <Footer/>
+    </section>
   );
 };
 

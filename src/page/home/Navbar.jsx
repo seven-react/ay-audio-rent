@@ -14,8 +14,7 @@ const navLinks = [
   { to: "/church", label: "Church Events" },
   { to: "/corporate", label: "Corporate Events" },
   { to: "/blogs", label: "Band Equipments" },
-  { to: "/faqs", label: "FAQs" },
-  {to: "/Contact", label: "Contact Us"}
+  { to: "/faqs", label: "FAQs" }  
 ];
 
 const NavbarLink = ({ to, children, sticky, isStickyBlue, isActive }) => (

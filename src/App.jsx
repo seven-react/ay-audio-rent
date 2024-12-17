@@ -10,7 +10,7 @@ import {
   Testimonials,
   BookNow,
 } from "@home";
-import { Contact, WeedingEvents } from "@/pages";
+import { Contact, WeedingEvents } from "@/page";
 
 
 
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         <div className=" bg-weeding bg-[bottom_] bg-no-repeat bg-cover w-full h-weeding-sm md:h-weeding-md lg:h-weeding-lg">
           <WeedingEvents />
         </div>
-      
+        
       </>
     ),
   },
