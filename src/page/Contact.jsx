@@ -17,43 +17,43 @@ const Contact = () => {
 });
 
 
-  // State for form submission feedback
-  const [submitStatus, setSubmitStatus] = useState(null);
+    // State for form submission feedback
+    const [submitStatus, setSubmitStatus] = useState(null);
 
-  // Handle form input change
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitStatus(null); // Reset previous submission status
-
-    // Validate form data (simple example)
-    if (!formData.firstName || !formData.email || !formData.phone) {
-      setSubmitStatus("Please fill out all required fields.");
-      return;
-    }
-
-    // Send data to backend using Axios
-    try {
-      const response = await axios.post("/api/send-email", formData);
-
-      // Handle response from the serverless function
-      if (response.status === 200) {
-        setSubmitStatus("Your message has been sent successfully!");
-      } else {
-        setSubmitStatus(`Error: ${response.data.message}`);
+    // Handle form input change
+    const handleInputChange = (e) => {
+      const { name, value, type, checked } = e.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    };
+  
+    // Handle form submission
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setSubmitStatus(null); // Reset previous submission status
+  
+      // Validate form data (simple example)
+      if (!formData.firstName || !formData.email || !formData.phone) {
+        setSubmitStatus("Please fill out all required fields.");
+        return;
       }
-    } catch (error) {
-      setSubmitStatus(`Error: ${error.message}`);
-    }
-  };
+  
+      // Send data to backend using Axios
+      try {
+        const response = await axios.post("/api/send-email", formData);
+  
+        // Handle response from the serverless function
+        if (response.status === 200) {
+          setSubmitStatus("Your message has been sent successfully!");
+        } else {
+          setSubmitStatus(`Error: ${response.data.message}`);
+        }
+      } catch (error) {
+        setSubmitStatus(`Error: ${error.message}`);
+      }
+    };
 
 
 
@@ -98,7 +98,7 @@ const Contact = () => {
       <div className="relative mt-4.2 mx-auto my-70 w-[100%] flex flex-col gap-7  lg:flex-row items-start justify-between px-[7%]">
         {/* Flex-1 Section on the Left */}
         <div className="basis-full lg:basis-1/2 px-[0.7451rem]  ">
-          <form className="space-y-4 " onSubmit={handleSubmit}>
+          <form className="space-y-4 " method="POST" onSubmit={handleSubmit}>
             <div className="flex flex-col lg:flex-row gap-7 items-center justify-center mx-auto ">
               <div className=" w-full lg:w-1/2">
                 <label className="block  text-sm font-medium text-cello">
